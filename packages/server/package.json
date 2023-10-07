@@ -4,9 +4,9 @@
   "private": true,
   "main": "./dist/src/index.js",
   "scripts": {
-    "test": "npm run build && npm run start",
     "start": "node ./dist/src/index.js",
     "build": "tsc -b",
+    "test": "npm run build && npm run start",
     "dev": "nodemon ./src/index.ts"
   },
   "dependencies": {
