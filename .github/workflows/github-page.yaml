@@ -14,10 +14,10 @@ permissions:
   contents: read
   id-token: write
 
-# # Sets the Working Directory to the Client subfolder
-# defaults:
-#   run:
-#     working-directory: './packages/client'
+# Sets the Working Directory to the Client subfolder
+defaults:
+  run:
+    working-directory: './packages/client'
 
 
 # Sets Secrets as ENV variables to be used in GitHub Pages
@@ -48,15 +48,14 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          cache: npm
-          cache-dependency-path: 'package-lock.json'
+          cache: 'npm'
           node-version: 18
   
       - name: Install dependencies
-        run: npm i -w ./packages/client
+        run: npm install
   
       - name: Build
-        run: npm run build -w ./packages/client
+        run: npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
