@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "incremental": true,
+    "module": "CommonJS",
+    "lib": [
+      "ES2015",
+      "DOM"
+    ],
+    "outDir": "./dist"
+  },
+  "include": [
+    "./src/"
+  ]
+}
