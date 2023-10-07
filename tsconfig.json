@@ -13,11 +13,11 @@
     "strict": true,
     "strictNullChecks": true,
     "useDefineForClassFields": true,
-    "baseUrl": ".",
-    "paths": {
-      "@shared/utils": [
-        "./packages/utils"
-      ]
-    }
+    // "baseUrl": ".",
+    // "paths": {
+    //   "@shared/utils": [
+    //     "./packages/utils"
+    //   ]
+    // }
   }
 }

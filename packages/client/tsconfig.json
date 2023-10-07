@@ -12,11 +12,12 @@
       "DOM.Iterable"
     ],
     "outDir": "./dist",
-    // "paths": {
-    //   "@shared/utils": [
-    //     "../utils"
-    //   ]
-    // }
+    "baseUrl": ".",
+    "paths": {
+      "@shared/utils": [
+        "../utils"
+      ]
+    }
   },
   "include": [
     "./src"
