@@ -8,11 +8,10 @@
     "build": "tsc -b"
   },
   "workspaces": [
-    "packages/types",
-    "packages/utils",
-    "packages/test",
+    "packages/client",
     "packages/server",
-    "packages/client"
+    "packages/types",
+    "packages/utils"
   ],
   "devDependencies": {
     "typescript": "^5.2.2"
