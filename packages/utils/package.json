@@ -11,5 +11,8 @@
   },
   "dependencies": {
     "@shared/types": "^1.0.0"
+  },
+  "exports": {
+    ".": "./dist/src/index.js"
   }
 }
