@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "main": "./dist/src/index.js",
+  "module": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
   "scripts": {
     "build": "tsc -b",
@@ -12,5 +13,14 @@
   },
   "dependencies": {
     "@shared/types": "^1.0.0"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/src/index.js",
+      "types": "./dist/src/index.d.ts"
+    },
+    "./ts": {
+      "import": "./src/index.ts"
+    }
   }
 }
