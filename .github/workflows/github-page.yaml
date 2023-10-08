@@ -5,7 +5,6 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - '.github/workflows/**'
       - 'packages/**'
       - '!packages/server/**'
 
@@ -54,7 +53,7 @@ jobs:
       - name: Build Utils
         run: npm run build -w ./packages/utils
   
-      - name: Build Utils
+      - name: Build Client
         run: npm run build -w ./packages/client
 
       - name: Setup Pages
