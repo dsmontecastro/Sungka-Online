@@ -5,4 +5,13 @@ import react from '@vitejs/plugin-react-swc';
 export default defineConfig({
   base: 'Sungka-Online',
   plugins: [react()],
-});
+  optimizeDeps: {
+    include: ['@shared/utils'],
+  },
+  build: {
+    commonjsOptions: {
+      exclude: ['@shared/utils'],
+      include: []
+    },
+  },
+})
