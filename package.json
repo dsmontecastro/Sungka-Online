@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "license": "GPL-3.0",
   "scripts": {
+    "prep": "npm i",
     "build:client": "npm run build -w ./packages/client",
     "start:client": "npm run start -w ./packages/client",
     "build:server": "npm run build -w ./packages/server",
