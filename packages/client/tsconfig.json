@@ -10,6 +10,14 @@
       "DOM.Iterable"
     ],
     "outDir": "./dist",
+    "paths": {
+      "@shared/types": [
+        "../types"
+      ],
+      "@shared/utils": [
+        "../utils"
+      ]
+    }
   },
   "include": [
     "./src"
