@@ -15,11 +15,6 @@ permissions:
   contents: read
   id-token: write
 
-# # Sets the Working Directory to the Client subfolder
-# defaults:
-#   run:
-#     working-directory: './packages/client'
-
 
 # Sets Secrets as ENV variables to be used in GitHub Pages
 env:
@@ -29,7 +24,7 @@ env:
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
-  group: github-pages
+  group: github-page
   cancel-in-progress: false
 
 jobs:
@@ -38,7 +33,7 @@ jobs:
   deploy:
 
     environment:
-      name: github-pages
+      name: github-page
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
 
@@ -56,8 +51,11 @@ jobs:
       - name: Install dependencies
         run: npm i
   
-      - name: Build
-        run: npm run build
+      - name: Build Utils
+        run: npm run build -w ./packages/utils
+  
+      - name: Build Utils
+        run: npm run build -w ./packages/client
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
