@@ -12,10 +12,10 @@
     "outDir": "./dist",
     "paths": {
       "@shared/types": [
-        "../types"
+        "../types/dist"
       ],
       "@shared/utils": [
-        "../utils"
+        "../utils/dist"
       ]
     }
   },
