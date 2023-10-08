@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
   push:
     paths:
+      - '.github/workflows/**'
       - 'packages/**'
       - '!packages/server/**'
 
@@ -14,10 +15,10 @@ permissions:
   contents: read
   id-token: write
 
-# Sets the Working Directory to the Client subfolder
-defaults:
-  run:
-    working-directory: './packages/client'
+# # Sets the Working Directory to the Client subfolder
+# defaults:
+#   run:
+#     working-directory: './packages/client'
 
 
 # Sets Secrets as ENV variables to be used in GitHub Pages
@@ -48,14 +49,15 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          cache: 'npm'
+          cache: npm
+          cached-dependency-path: ./package-lock.json
           node-version: 18
   
       - name: Install dependencies
-        run: npm install
+        run: npm i -w ./packages/client
   
       - name: Build
-        run: npm run build
+        run: npm run build -w ./packages/client
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
