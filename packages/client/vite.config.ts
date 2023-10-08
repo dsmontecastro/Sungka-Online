@@ -15,4 +15,9 @@ export default defineConfig({
       include: ['react']
     },
   },
+  resolve: {
+    alias: {
+      '@shared/utils': '../../node_modules/@shared/utils'
+    }
+  }
 })
