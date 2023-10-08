@@ -4,8 +4,8 @@
     "composite": true,
     "declaration": true,
     "incremental": true,
-    "module": "CommonJS",
-    "moduleResolution": "Node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "target": "ES2022",
     "lib": [
       "ES2015",

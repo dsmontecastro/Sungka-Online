@@ -1,6 +1,7 @@
 {
   "name": "@shared/utils",
   "version": "1.0.0",
+  "type": "module",
   "private": true,
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
@@ -11,8 +12,5 @@
   },
   "dependencies": {
     "@shared/types": "^1.0.0"
-  },
-  "exports": {
-    ".": "./dist/src/index.js"
   }
 }
