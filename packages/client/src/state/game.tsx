@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { makeBoard } from '@shared/utils';
+import { makeBoard } from '@shared/utils/ts';
 import { Board, Move } from '@shared/types';
 
 

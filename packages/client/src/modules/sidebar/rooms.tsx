@@ -1,7 +1,7 @@
 import { createRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { MEMBERS } from '@shared/utils';
+import { MEMBERS } from '@shared/utils/ts';
 
 import { RootState } from '../../state/_store'
 import { lobbyActions as lobby } from '../../state/lobby';

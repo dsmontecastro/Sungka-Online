@@ -3,7 +3,7 @@
 import io from 'socket.io-client';
 import { Middleware } from 'redux';
 
-import { EVENTS } from '@shared/utils';
+import { EVENTS } from '@shared/utils/ts';
 import { Board, Message, Move, Rooms } from '@shared/types';
 
 import { userActions as user } from './user';

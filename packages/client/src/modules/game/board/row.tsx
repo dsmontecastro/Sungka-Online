@@ -1,4 +1,4 @@
-import { PIECES, SLOTS } from '@shared/utils';
+import { ROW } from '@shared/utils/ts';
 
 import { Layout } from '../../styles';
 
@@ -7,8 +7,6 @@ import Slot from './slot';
 
 
 interface Props { team: Team }
-
-const _row = Array(SLOTS).fill(PIECES);
 
 export default function Row({ team }: Props) {
 
@@ -31,7 +29,7 @@ export default function Row({ team }: Props) {
 
             <div id={label('slots')} className={_slots}>
 
-                {_row.map((_, i) => <Slot key={i} col={i} team={team} />)}
+                {ROW.map((_, i) => <Slot key={i} col={i} team={team} />)}
 
             </div>
 

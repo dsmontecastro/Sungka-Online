@@ -6,7 +6,6 @@ import { userActions as user } from '../../state/user'
 
 import { _Side } from '../styles';
 
-// --------------------------------------------------------------------------------|
 
 const LOCAL_KEY = 'name';
 

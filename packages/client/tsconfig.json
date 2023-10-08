@@ -3,33 +3,19 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "module": "ESNext",
-    "moduleResolution": "Node",
-    "target": "ES2020",
-    "types": [
-      "node"
-    ],
+    "moduleResolution": "Bundler",
+    "target": "ESNext",
     "lib": [
       "ES2020",
       "DOM",
       "DOM.Iterable"
     ],
     "outDir": "./dist",
-    // "paths": {
-    //   "@shared/types": [
-    //     "../types/dist"
-    //   ],
-    //   "@shared/utils": [
-    //     "../utils/dist"
-    //   ]
-    // }
   },
   "include": [
     "./src"
   ],
   "references": [
-    {
-      "path": "../utils"
-    },
     {
       "path": "./tsconfig.node.json"
     }
