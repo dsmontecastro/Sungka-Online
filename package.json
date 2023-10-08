@@ -8,7 +8,6 @@
     "build": "tsc -b"
   },
   "workspaces": [
-    "packages/client",
     "packages/server",
     "packages/types",
     "packages/utils"
