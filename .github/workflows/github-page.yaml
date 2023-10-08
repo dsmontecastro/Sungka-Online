@@ -50,7 +50,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           cache: npm
-          cached-dependency-path: ./package-lock.json
+          cache-dependency-path: ./package-lock.json
           node-version: 18
   
       - name: Install dependencies
