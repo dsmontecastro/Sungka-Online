@@ -53,7 +53,10 @@ jobs:
           cache-dependency-path: ./package-lock.json
           node-version: 18
   
-      - name: Install dependencies
+      - name: Install dependencies (Root)
+        run: npm i
+  
+      - name: Install dependencies (Client)
         run: npm i -w ./packages/client
   
       - name: Build
