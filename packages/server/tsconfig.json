@@ -4,12 +4,13 @@
         "composite": true,
         "module": "ES6",
         "moduleResolution": "Bundler",
-        "strict": false,
+        "noUnusedLocals": false,
         "target": "ES6",
         "lib": [
             "ES2015",
             "DOM"
         ],
+        "baseUrl": ".",
         "outDir": "./dist"
     },
     "include": [
