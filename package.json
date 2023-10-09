@@ -6,7 +6,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "prep": "npm i",
-    "build": "tsc",
+    "build": "tsc -b",
     "start": "npm run start:server && npm run start:client",
     "start:client": "npm run start -w ./packages/client",
     "start:server": "npm run start -w ./packages/server"

@@ -16,31 +16,28 @@
     "strict": true,
     "strictNullChecks": true,
     "useDefineForClassFields": true,
-    "baseUrl": ".",
     "jsx": "react-jsx",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "target": "ESNext",
-    "outDir": "./dist",
     "lib": [
       "ES2020",
       "DOM",
       "DOM.Iterable"
-    ],
-    "paths": {
-      "client": [
-        "./packages/client"
-      ],
-      "server": [
-        "./packages/server"
-      ],
-      "utils": [
-        "./packages/utils"
-      ],
+    ]
+  },
+  "exclude": [
+    "./packages/client",
+  ],
+  "references": [
+    {
+      "path": "./packages/types"
     },
-    // "include": [
-    //   "**/packages/**/src",
-    //   "**/packages/**/package.json"
-    // ],
-  }
+    {
+      "path": "./packages/utils"
+    },
+    {
+      "path": "./packages/server"
+    }
+  ]
 }
