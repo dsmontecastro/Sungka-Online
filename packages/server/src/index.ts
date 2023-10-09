@@ -1,10 +1,10 @@
 import cors from 'cors';
 import express from 'express';
 import { config } from 'dotenv';
-// import { Server } from 'socket.io';
+import { Server } from 'socket.io';
 import { createServer } from 'http';
 
-// import socket from './modules/socket.js';
+import socket from './modules/socket.js';
 import logger from './modules/logger.js';
 
 
@@ -13,11 +13,10 @@ import logger from './modules/logger.js';
 // ENV
 config();
 const version = process.env.npm_package_version ?? '1.0.0';
-const env = process.env.NODE_ENV;
 
-const host = process.env.HOST ?? '127.0.0.1';
-const port = parseInt(`${process.env.PORT}`) || 3000;
-// const corsOrigin = `http://${host}:${port}`;
+const host = process.env.HOST ?? '0.0.0.0';
+const port = parseInt(`${process.env.PORT}`);
+const corsOrigin = `http://${host}:${port}`;
 
 
 // ExpressJS App
@@ -26,12 +25,12 @@ app.use(cors());
 
 // HTPP & Socket.io
 const server = createServer(app);
-// const io = new Server(server, {
-//     cors: {
-//         credentials: true,
-//         origin: corsOrigin,
-//     }
-// });
+const io = new Server(server, {
+    cors: {
+        credentials: true,
+        origin: corsOrigin,
+    }
+});
 
 // #endregion ------------------------------------------------------------------------------------------------
 
@@ -39,21 +38,10 @@ const server = createServer(app);
 // #region : Settings & Configuration ------------------------------------------------------------------------
 
 // Create Listener @ URI
-
-if (env != 'production') {
-    server.listen(port, host, () => {
-        // logger.info(`SERVER LISTENING @ ${corsOrigin} (v.${version})`);
-        // socket({ io });
-    });
-}
-
-else {
-    server.listen(port, () => {
-        const address = server.address();
-        logger.info(`SERVER LISTENING @ ${address} (v.${version})`);
-        // socket({ io });
-    });
-};
+server.listen(port, host, () => {
+    logger.info(`SERVER LISTENING @ ${corsOrigin} (v.${version})`);
+    socket({ io });
+});
 
 
 // Route: Home
