@@ -7,9 +7,7 @@
   "scripts": {
     "prep": "npm i",
     "build": "tsc -b",
-    "start": "npm run start:server && npm run start:client",
-    "start:client": "npm run start -w ./packages/client",
-    "start:server": "npm run start -w ./packages/server"
+    "start:server": "node ./packages/server/dist/src/index.js"
   },
   "workspaces": [
     "packages/client",
@@ -19,5 +17,6 @@
   ],
   "devDependencies": {
     "typescript": "^5.2.2"
-  }
+  },
+  "main": "./packages/server/dist/src/index.js"
 }
