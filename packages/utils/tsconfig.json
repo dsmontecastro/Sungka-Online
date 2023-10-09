@@ -11,6 +11,7 @@
       "ES2015",
       "DOM"
     ],
+    "baseUrl": ".",
     "outDir": "./dist"
   },
   "include": [
