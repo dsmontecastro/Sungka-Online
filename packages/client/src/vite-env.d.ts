@@ -1,3 +1,9 @@
 /// <reference types="vite/client" />
 
-declare const TITLE: string;
+interface ImportMetaEnv {
+    readonly TITLE: string;
+}
+
+interface ImportMeta {
+    readonly env: ImportMetaEnv;
+}

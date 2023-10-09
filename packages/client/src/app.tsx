@@ -8,10 +8,12 @@ import Game from './modules/game/_game';
 import Help from './modules/_help';
 
 
+const title = import.meta.env.VITE_TITLE;
+
 export default function App() {
 
   function onFocus() {
-    if (document.title != TITLE) document.title = TITLE;
+    if (document.title != title) document.title = title;
   }
 
   useEffect(() => {
@@ -46,6 +48,6 @@ export default function App() {
       <Game />
     </div>
 
-  </>
+  </>;
 
 }

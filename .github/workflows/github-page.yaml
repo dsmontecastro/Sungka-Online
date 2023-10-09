@@ -50,6 +50,9 @@ jobs:
       - name: Install dependencies
         run: npm i
   
+      - name: Build Types
+        run: npm run build -w ./packages/types
+  
       - name: Build Utils
         run: npm run build -w ./packages/utils
   

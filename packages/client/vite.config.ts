@@ -1,14 +1,16 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 
-const base = '/Sungka-Online/';
-const title = 'Sungka Online';
+import { homepage } from './package.json';
+
+function getBase(text: string) {
+  const list = text.split('/');
+  const base = list[list.length - 2];
+  return `/${base}/`;
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: base,
-  define: {
-    TITLE: JSON.stringify(process.env.npm_package_displayName) || title
-  },
+  base: getBase(homepage),
   plugins: [react()],
 })
