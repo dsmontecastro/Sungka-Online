@@ -16,7 +16,8 @@ const version = process.env.npm_package_version ?? '1.0.0';
 
 const host = process.env.HOST ?? '0.0.0.0';
 const port = parseInt(`${process.env.PORT}`);
-const corsOrigin = `http://${host}:${port}`;
+const corsOrigin = `${host}:${port}`;
+console.log(corsOrigin);
 
 
 // ExpressJS App
@@ -39,6 +40,7 @@ const io = new Server(server, {
 
 // Create Listener @ URI
 server.listen(port, host, () => {
+    logger.info(server.address());
     logger.info(`SERVER LISTENING @ ${corsOrigin} (v.${version})`);
     socket({ io });
 });
