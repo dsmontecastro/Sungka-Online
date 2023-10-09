@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import { displayName } from '../package.json';
-
 import BreakPoints from './_debug/breakpoints';
 
 import { Layout } from './modules/styles';
@@ -13,7 +11,7 @@ import Help from './modules/_help';
 export default function App() {
 
   function onFocus() {
-    if (document.title != displayName) document.title = displayName;
+    if (document.title != TITLE) document.title = TITLE;
   }
 
   useEffect(() => {
