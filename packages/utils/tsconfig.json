@@ -1,20 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "incremental": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "target": "ES2022",
-    "lib": [
-      "ES2015",
-      "DOM"
-    ],
     "baseUrl": ".",
     "outDir": "./dist"
-  },
-  "include": [
-    "./src"
-  ]
+  }
 }

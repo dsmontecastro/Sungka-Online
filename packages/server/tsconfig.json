@@ -1,20 +1,7 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "composite": true,
-        "module": "ES6",
-        "moduleResolution": "Bundler",
-        "noUnusedLocals": false,
-        "target": "ES6",
-        "lib": [
-            "ES2015",
-            "DOM"
-        ],
         "baseUrl": ".",
         "outDir": "./dist"
-    },
-    "include": [
-        "./src",
-        "./package.json"
-    ]
+    }
 }

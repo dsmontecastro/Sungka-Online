@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "composite": true,
+    "declaration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "incremental": true,
     "isolatedModules": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
@@ -13,6 +16,31 @@
     "strict": true,
     "strictNullChecks": true,
     "useDefineForClassFields": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ESNext",
+    "outDir": "./dist",
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "paths": {
+      "client": [
+        "./packages/client"
+      ],
+      "server": [
+        "./packages/server"
+      ],
+      "utils": [
+        "./packages/utils"
+      ],
+    },
+    // "include": [
+    //   "**/packages/**/src",
+    //   "**/packages/**/package.json"
+    // ],
   }
 }
