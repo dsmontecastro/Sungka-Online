@@ -16,9 +16,7 @@ const version = process.env.npm_package_version ?? '1.0.0';
 
 const host = process.env.HOST ?? '0.0.0.0';
 const port = parseInt(`${process.env.PORT}`);
-const corsOrigin = `${host}:${port}`;
-// const corsOrigin = `${host}:8080`;
-// console.log(corsOrigin);
+const corsOrigin = `${host}:*`;
 
 
 // ExpressJS App
@@ -30,8 +28,7 @@ const server = createServer(app);
 const io = new Server(server, {
     cors: {
         credentials: true,
-        origin: host,
-        // origin: corsOrigin,
+        origin: corsOrigin,
     }
 });
 
@@ -42,8 +39,9 @@ const io = new Server(server, {
 
 // Create Listener @ URI
 server.listen(port, host, () => {
-    logger.info(server.address());
-    logger.info(`SERVER LISTENING @ ${corsOrigin} (v.${version})`);
+    logger.info(`SERVER LAUNCHED (v.${version})`)
+    logger.info(`LAUNCHED @ ${corsOrigin}`);
+    logger.info(`LISTENING @ ${port}`);
     socket({ io });
 });
 
