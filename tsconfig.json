@@ -26,6 +26,12 @@
       "DOM.Iterable"
     ]
   },
+  "ts-node": {
+    "esm": true
+  },
+  "exclude": [
+    "./packages/client"
+  ],
   "references": [
     {
       "path": "./packages/types"
@@ -35,9 +41,6 @@
     },
     {
       "path": "./packages/server"
-    },
-    {
-      "path": "./packages/client"
     }
   ]
 }
