@@ -10,8 +10,8 @@
   },
   "scripts": {
     "prep": "npm i",
-    "build": "tsc -b",
-    "build:all": "npm run build -w ./packages/types -w ./packages/utils -w ./packages/server",
+    "clean": "rimraf \"packages/**/dist\"",
+    "build": "tsc --build",
     "start": "node ./packages/server/dist/src/index.js"
   },
   "workspaces": [

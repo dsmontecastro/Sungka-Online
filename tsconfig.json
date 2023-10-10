@@ -26,9 +26,6 @@
       "DOM.Iterable"
     ]
   },
-  "ts-node": {
-    "esm": true
-  },
   "exclude": [
     "./packages/client"
   ],
