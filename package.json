@@ -11,7 +11,7 @@
   "scripts": {
     "prep": "npm i",
     "clean": "rimraf \"packages/**/dist\"",
-    "build": "tsc --build",
+    "build": "tsc --build && npm run vite-build -w ./packages/client",
     "start": "node ./packages/server/dist/src/index.js"
   },
   "workspaces": [
