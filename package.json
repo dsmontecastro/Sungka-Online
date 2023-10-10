@@ -9,7 +9,7 @@
     "npm": "10.x"
   },
   "scripts": {
-    "build": "npm i && tsc -b",
+    "build": "tsc -b && npm i",
     "start": "node ./packages/server/dist/src/index.js"
   },
   "workspaces": [
