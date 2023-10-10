@@ -16,7 +16,8 @@ const version = process.env.npm_package_version ?? '1.0.0';
 
 const host = process.env.HOST ?? '0.0.0.0';
 const port = parseInt(`${process.env.PORT}`);
-const corsOrigin = `${host}:${port}`;
+// const corsOrigin = `${host}:${port + 1}`;
+const corsOrigin = `${host}:8080`;
 console.log(corsOrigin);
 
 
