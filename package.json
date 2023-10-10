@@ -4,10 +4,14 @@
   "private": true,
   "version": "1.0.0",
   "license": "GPL-3.0",
+  "engines": {
+    "node": "18.x",
+    "npm": "10.x"
+  },
   "scripts": {
     "prep": "npm i",
     "build": "tsc -b",
-    "start:server": "node ./packages/server/dist/src/index.js"
+    "start": "node ./packages/server/dist/src/index.js"
   },
   "workspaces": [
     "packages/client",
