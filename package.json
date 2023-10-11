@@ -10,18 +10,17 @@
   },
   "scripts": {
     "prep": "npm i",
-    "clean": "rimraf \"packages/**/dist\"",
     "build": "tsc --build",
-    "start": "node ./packages/server/dist/src/index.js"
+    "clean": "rimraf \"packages/**/dist\" \"packages/**/node_modules\"",
+    "reset": "rimraf ./node_modules",
+    "dist": "npm run build && npm run dist -w ./packages/types && npm run dist -w ./packages/utils"
   },
   "workspaces": [
     "packages/client",
-    "packages/server",
     "packages/types",
     "packages/utils"
   ],
   "devDependencies": {
     "typescript": "^5.2.2"
-  },
-  "main": "./packages/server/dist/src/index.js"
+  }
 }

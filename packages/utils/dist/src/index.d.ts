@@ -1,0 +1,44 @@
+import { Board } from '@shared/types';
+export declare const MEMBERS = 2;
+export declare const SLOTS = 7;
+export declare const PIECES = 7;
+export declare const ROW: any[];
+export declare function makeBoard(): Board;
+export declare function copyBoard(board: Board): Board;
+export declare const EVENTS: {
+    SERVER: {
+        _DEBUG: string;
+        _CONNECT: string;
+        _DISCONNECT: string;
+        ROOMS: string;
+        EXITED_ROOM: string;
+        JOINED_ROOM: string;
+        GUEST_LEFT: string;
+        HOST_LEFT: string;
+        ROOM_DNE: string;
+        ROOM_FULL: string;
+        MESSAGE: string;
+        READY: string;
+        GAME_READY: string;
+        TURN: string;
+        END_TURN: string;
+        UPDATE: string;
+        BOARD: string;
+        GAME_TIE: string;
+        GAME_WIN: string;
+        GAME_LOSE: string;
+    };
+    CLIENT: {
+        _DEBUG: string;
+        _CONNECT: string;
+        _DISCONNECT: string;
+        ROOMS: string;
+        MAKE_ROOM: string;
+        JOIN_ROOM: string;
+        EXIT_ROOM: string;
+        MESSAGE: string;
+        READY: string;
+        MOVE: string;
+        BOARD: string;
+    };
+};

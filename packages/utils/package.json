@@ -7,11 +7,11 @@
   "types": "./dist/src/index.d.ts",
   "scripts": {
     "build": "tsc -b",
-    "start": "node ./dist/src/index.js",
-    "test": "npm run build && npm run start"
+    "pack": "npm pack --pack-destination ../server",
+    "dist": "npm run build && npm run pack"
   },
   "dependencies": {
-    "@shared/types": "^1.0.0"
+    "@shared/types": "file:../types"
   },
   "exports": {
     ".": {
