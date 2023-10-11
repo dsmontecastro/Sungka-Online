@@ -12,11 +12,11 @@ import logger from './modules/logger.js';
 
 // ENV
 config();
-const version = process.env.npm_package_version ?? '1.0.0';
+const version = process.env.npm_package_version ?? '0.0.1';
 
 const host = process.env.HOST ?? '0.0.0.0';
-const port = parseInt(`${process.env.PORT}`);
-const corsOrigin = `${host}:*`;
+const port = parseInt(`${process.env.PORT}`) || 8080;
+const corsOrigin = `${host}:${port}`;
 
 
 // ExpressJS App
