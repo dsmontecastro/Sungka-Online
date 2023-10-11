@@ -1,0 +1,8 @@
+.env
+.vite
+.vscode
+
+dist
+node_modules
+
+tsconfig.tsbuildinfo

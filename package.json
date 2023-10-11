@@ -1,0 +1,26 @@
+{
+  "name": "sungka",
+  "author": "Daniel S. Montecastro",
+  "private": true,
+  "version": "1.0.0",
+  "license": "GPL-3.0",
+  "engines": {
+    "node": "18.x",
+    "npm": "10.x"
+  },
+  "scripts": {
+    "prep": "npm i",
+    "build": "tsc --build",
+    "clean": "rimraf \"packages/**/dist\" \"packages/**/node_modules\"",
+    "reset": "rimraf ./node_modules",
+    "dist": "npm run build && npm run dist -w ./packages/types && npm run dist -w ./packages/utils"
+  },
+  "workspaces": [
+    "packages/client",
+    "packages/types",
+    "packages/utils"
+  ],
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
