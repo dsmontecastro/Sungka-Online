@@ -11,8 +11,7 @@
   "scripts": {
     "start": "node ./dist/src/index.js",
     "build": "tsc -b",
-    "clean": "npm rm @shared/types @shared/utils && rimraf dist node_modules",
-    "prep": "npm i ./shared-types-1.0.0.tgz ./shared-utils-1.0.0.tgz",
+    "clean": "rimraf dist node_modules",
     "test": "npm run build && npm run start",
     "dev": "nodemon ./src/index.ts"
   },

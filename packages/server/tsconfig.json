@@ -3,12 +3,18 @@
     "compilerOptions": {
         "baseUrl": ".",
         "outDir": "./dist",
+        "paths": {
+            "@shared/types": [
+                "./shared/types"
+            ],
+            "@shared/utils": [
+                "./shared/utils"
+            ]
+        }
     },
     "include": [
+        "./shared",
         "./src"
     ],
-    "exclude": [],
-    "ts-node": {
-        "esm": true
-    }
+    "exclude": []
 }
