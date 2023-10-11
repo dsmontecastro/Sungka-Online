@@ -12,6 +12,7 @@
     "prep": "npm i",
     "build": "tsc --build",
     "clean": "rimraf \"packages/**/dist\" \"packages/**/node_modules\"",
+    "reset": "rimraf ./node_modules",
     "dist": "npm run build && npm run dist -w ./packages/types && npm run dist -w ./packages/utils"
   },
   "workspaces": [
