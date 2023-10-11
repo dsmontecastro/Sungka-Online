@@ -1,8 +1,8 @@
 import ShortUniqueId from 'short-unique-id';
 import { Server, Socket } from 'socket.io';
 
-import { EVENTS, MEMBERS, makeBoard } from '@shared/utils';
-import { Move, Rooms, Boards, Message, Update } from '@shared/types';
+import { EVENTS, MEMBERS, makeBoard } from '../../shared/utils';
+import { Move, Rooms, Boards, Message, Update } from '../../shared/types';
 
 import logger from './logger.js';
 import { userMove, gameEnd } from './game.js';

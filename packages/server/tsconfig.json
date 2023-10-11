@@ -2,15 +2,7 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "baseUrl": ".",
-        "outDir": "./dist",
-        "paths": {
-            "@shared/types": [
-                "./shared/types"
-            ],
-            "@shared/utils": [
-                "./shared/utils.js"
-            ]
-        }
+        "outDir": "./dist"
     },
     "include": [
         "./shared",
