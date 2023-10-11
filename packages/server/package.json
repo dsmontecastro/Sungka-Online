@@ -8,7 +8,7 @@
     "start": "node ./dist/src/index.js",
     "build": "tsc -b",
     "clean": "rimraf dist node_modules",
-    "prep": "npm i",
+    "prep": "npm i --install-links  ../types ../utils",
     "test": "npm run build && npm run start",
     "dev": "nodemon ./src/index.ts"
   },
