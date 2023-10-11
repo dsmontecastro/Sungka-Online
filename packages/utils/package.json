@@ -6,12 +6,10 @@
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc -b",
-    "pack": "npm pack --pack-destination ../server",
-    "dist": "npm run build && npm run pack"
+    "build": "tsc -b"
   },
   "dependencies": {
-    "@shared/types": "file:../types"
+    "@shared/types": "^1.0.0"
   },
   "exports": {
     ".": {
