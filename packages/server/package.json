@@ -8,13 +8,13 @@
     "start": "node ./dist/src/index.js",
     "build": "tsc -b",
     "clean": "rimraf dist node_modules",
-    "prep": "npm i --install-links  ../types ../utils",
+    "prep": "npm i ../shared-types-1.0.0.tgz ../shared-utils-1.0.0.tgz",
     "test": "npm run build && npm run start",
     "dev": "nodemon ./src/index.ts"
   },
   "dependencies": {
-    "@shared/types": "file:../types",
-    "@shared/utils": "file:../utils",
+    "@shared/types": "file:../shared-types-1.0.0.tgz",
+    "@shared/utils": "file:../shared-utils-1.0.0.tgz",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",

@@ -26,18 +26,16 @@
       "DOM.Iterable"
     ]
   },
+  "exclude": [
+    "./packages/client",
+    "./packages/server"
+  ],
   "references": [
     {
       "path": "./packages/types"
     },
     {
       "path": "./packages/utils"
-    },
-    {
-      "path": "./packages/server"
-    },
-    {
-      "path": "./packages/client"
     }
   ]
 }

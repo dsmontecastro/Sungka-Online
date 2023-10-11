@@ -1,8 +1,5 @@
 {
     "extends": "../../tsconfig.json",
-    "ts-node": {
-        "esm": true
-    },
     "compilerOptions": {
         "baseUrl": ".",
         "outDir": "./dist",
@@ -10,12 +7,8 @@
     "include": [
         "./src"
     ],
-    "references": [
-        {
-            "path": "../types",
-        },
-        {
-            "path": "../utils",
-        }
-    ]
+    "exclude": [],
+    "ts-node": {
+        "esm": true
+    }
 }
