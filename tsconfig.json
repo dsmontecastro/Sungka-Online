@@ -27,8 +27,7 @@
     ]
   },
   "exclude": [
-    "./packages/client",
-    "./packages/server"
+    "./packages/client"
   ],
   "references": [
     {
@@ -36,6 +35,9 @@
     },
     {
       "path": "./packages/utils"
+    },
+    {
+      "path": "./packages/server"
     }
   ]
 }
