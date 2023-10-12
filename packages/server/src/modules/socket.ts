@@ -2,7 +2,7 @@ import ShortUniqueId from 'short-unique-id';
 import { Server, Socket } from 'socket.io';
 
 import { EVENTS, MEMBERS, makeBoard } from '@shared/utils';
-import { Move, Rooms, Boards, Message, Update } from '@shared/types';
+import { Boards, Message, Move, Rooms, Update } from '@shared/types';
 
 import logger from './logger.js';
 import { userMove, gameEnd } from './game.js';
@@ -19,10 +19,19 @@ function delay(ms: number = 100) {
 
 // #endregion ------------------------------------------------------------------------------------------------
 
+interface Handler {
+    io: Server
+    trackers: Trackers
+}
 
-export default function socket({ io }: { io: Server }) {
+
+export default function handler({ io, trackers }: Handler) {
 
     const suid = new ShortUniqueId({ length: 10 });
+
+    function userCount() {
+        return io.engine.clientsCount;
+    }
 
     // On Client connect
     io.on(EVENTS.SERVER._CONNECT, (socket: Socket) => {
@@ -39,8 +48,9 @@ export default function socket({ io }: { io: Server }) {
         // #region : Client Connection -----------------------------------------------------------------------
 
         // Server logs Client connection
+        trackers.users = userCount();
         logger.info(`User connected @ ${socket.id}!`);
-        logger.info(`${io.engine.clientsCount} user(s) connected.`);
+        logger.info(`${userCount()} user(s) connected.`);
 
         // Server validates Client connection
         socket.emit(EVENTS.SERVER._CONNECT);
@@ -50,8 +60,13 @@ export default function socket({ io }: { io: Server }) {
 
         // On Client disconnect
         socket.on(EVENTS.CLIENT._DISCONNECT, () => {
+
+            const users = userCount();
+            trackers.users = users;
+
             logger.info(`${socket.id} has disconnected.`)
-            logger.info(`${io.engine.clientsCount} user(s) connected.`);
+            logger.info(`${users} user(s) connected.`);
+
         });
 
         // #endregion ----------------------------------------------------------------------------------------
@@ -61,8 +76,13 @@ export default function socket({ io }: { io: Server }) {
 
         // Helper: Broadcast updated Rooms to all Clients
         function roomsUpdated() {
+
+            const count = Object.keys(rooms).length;
+            trackers.rooms = count;
+
             io.emit(EVENTS.SERVER.ROOMS, rooms);
-            logger.info(String(Object.keys(rooms).length) + ' room(s).')
+            logger.info(String(count) + ' room(s).')
+
         };
 
         // On Client requests Rooms

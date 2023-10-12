@@ -4,7 +4,7 @@ import { config } from 'dotenv';
 import { Server } from 'socket.io';
 import { createServer } from 'http';
 
-import socket from './modules/socket.js';
+import handler from './modules/socket.js';
 import logger from './modules/logger.js';
 
 
@@ -35,21 +35,23 @@ const io = new Server(server, {
 // #endregion ------------------------------------------------------------------------------------------------
 
 
-// #region : Settings & Configuration ------------------------------------------------------------------------
+// #region : Trackers & Listeners ----------------------------------------------------------------------------
+
+const trackers: Trackers = { users: 0, rooms: 0 };
 
 // Create Listener @ URI
 server.listen(port, host, () => {
     logger.info(`SERVER LAUNCHED (v.${version})`)
     logger.info(`LAUNCHED @ ${corsOrigin}`);
     logger.info(`LISTENING @ ${port}`);
-    socket({ io });
+    handler({ io, trackers });
 });
 
 // Route: Home
 app.get('/', (_, res) => {
     let data = `SERVER STARTED (v.${version}) <br/>`;
-    data += `\> USERS = ${io.engine.clientsCount} <br/>`;
-    data += `\> ROOMS = ${io.of('/').adapter.rooms.size} <br/>`;
+    data += `\> USERS = ${trackers.users} <br/>`;
+    data += `\> ROOMS = ${trackers.rooms} <br/>`;
     res.send(data);
 });
 
