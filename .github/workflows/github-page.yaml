@@ -17,6 +17,7 @@ permissions:
 
 # Sets Secrets as ENV variables to be used in GitHub Pages
 env:
+  VITE_TITLE: ${{ secrets.VITE_TITLE }}
   VITE_HOST: ${{ secrets.VITE_HOST }}
   VITE_PORT: ${{ secrets.VITE_PORT }}
 
