@@ -1,1 +1,0 @@
-declare type Trackers = { users: number, rooms: number };

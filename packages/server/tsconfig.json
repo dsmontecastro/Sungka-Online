@@ -4,7 +4,7 @@
         "baseUrl": ".",
         "outDir": "./dist",
         "types": [
-            "./src/index.d.ts"
+            "./src/types.d.ts"
         ]
     },
     "include": [
