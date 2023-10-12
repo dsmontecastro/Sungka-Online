@@ -1,41 +1,17 @@
 {
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "composite": true,
-    "declaration": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "incremental": true,
-    "isolatedModules": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "useDefineForClassFields": true,
-    "jsx": "react-jsx",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "target": "ESNext",
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ]
-  },
-  "exclude": [
-    "./packages/client",
-    "./packages/server"
-  ],
-  "references": [
-    {
-      "path": "./packages/types"
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "outDir": "./dist",
+        "types": [
+            "./src/index.d.ts"
+        ]
     },
-    {
-      "path": "./packages/utils"
+    "include": [
+        "./src"
+    ],
+    "exclude": [],
+    "ts-node": {
+        "esm": true
     }
-  ]
 }
