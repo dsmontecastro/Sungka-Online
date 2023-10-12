@@ -197,6 +197,7 @@ const SocketHandler: Middleware = store => {
         // Signal Emissions
         const roomID = store.getState().lobby.roomID;
         store.dispatch(lobby.exitRoom(roomID));
+        socket.emit(EVENTS.CLIENT._DISCONNECT);
         socket.disconnect();
 
         // State Setting
