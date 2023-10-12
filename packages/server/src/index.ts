@@ -45,8 +45,12 @@ server.listen(port, host, () => {
     socket({ io });
 });
 
-
 // Route: Home
-app.get('/', (_, res) => res.send(`SERVER STARTED (v.${version})`));
+app.get('/', (_, res) => {
+    let data = `SERVER STARTED (v.${version}) <br/>`;
+    data += `\> USERS = ${io.engine.clientsCount} <br/>`;
+    data += `\> ROOMS = ${io.of('/').adapter.rooms.size} <br/>`;
+    res.send(data);
+});
 
 // #endregion ------------------------------------------------------------------------------------------------
