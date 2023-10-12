@@ -33,7 +33,7 @@ export default function handler({ io, trackers }: Handler) {
     }
 
     // On Client connect
-    io.on(EVENTS.SERVER._CONNECT, (socket: Socket) => {
+    io.on(EVENTS.CLIENT._CONNECT, (socket: Socket) => {
 
         // #region : Debugging -------------------------------------------------------------------------------
 

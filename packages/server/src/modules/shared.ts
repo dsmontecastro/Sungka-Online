@@ -68,8 +68,8 @@ export const EVENTS = {
     CLIENT: {   // Emitted by CLIENT & Received by SERVER
 
         _DEBUG: 'debug',
-        _CONNECT: 'connected',
-        _DISCONNECT: 'disconnected',
+        _CONNECT: 'connection',
+        _DISCONNECT: 'disconnect',
 
         ROOMS: 'ROOMS',
         MAKE_ROOM: 'MAKE_ROOM',
