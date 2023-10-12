@@ -16,9 +16,9 @@ import { lobbyActions as lobby } from './lobby';
 
 const dev = import.meta.env.DEV;
 
-const host = import.meta.env.VITE_HOST ?? 'localhost';
-const port = import.meta.env.VITE_PORT ?? '4000';
-const uri = `http://${host}:${port}`;
+const host: string = import.meta.env.VITE_HOST ?? 'localhost';
+const port: number = import.meta.env.VITE_PORT ?? 4000;
+const uri = `${host}:${port}`;
 
 const opt = {
   autoConnect: false,
