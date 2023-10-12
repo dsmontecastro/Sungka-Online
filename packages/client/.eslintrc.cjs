@@ -8,11 +8,6 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    sourceType: 'module',
-    project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
-  },
   plugins: ['react-refresh'],
   rules: {
     'react-refresh/only-export-components': [

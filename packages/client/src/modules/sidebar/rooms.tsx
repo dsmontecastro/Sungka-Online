@@ -21,11 +21,6 @@ export default function Rooms() {
         if (roomID) dispatch(lobby.exitRoom(roomID));
     }
 
-    useEffect(() => {
-        window.addEventListener('beforeunload', exitRoom);
-        return () => window.removeEventListener('beforeunload', exitRoom);
-    });
-
     /* --------------------------------------------- MAKING A ROOM -------------------------------------------- */
 
     const [makeName, setMakeName] = useState<string>('');

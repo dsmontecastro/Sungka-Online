@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { userActions as user } from './state/user';
 
 import BreakPoints from './_debug/breakpoints';
 
@@ -12,13 +15,27 @@ const title = import.meta.env.VITE_TITLE;
 
 export default function App() {
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+
+    function disconnect() {
+      dispatch(user.disconnect());
+    }
+
+    window.addEventListener('beforeunload', disconnect);
+    return () => removeEventListener('beforeunload', disconnect);
+
+  }, [dispatch]);
+
+
   function onFocus() {
     if (document.title != title) document.title = title;
   }
 
   useEffect(() => {
-    window.addEventListener("focus", onFocus);
-    return () => window.removeEventListener("focus", onFocus)
+    window.addEventListener('focus', onFocus);
+    return () => window.removeEventListener('focus', onFocus)
   });
 
   /* --------------------------------------- HELP-VISIBILITY HANDLING --------------------------------------- */
@@ -27,9 +44,9 @@ export default function App() {
 
   function toggleHelp() { setVisibility(!visible); }
 
-  const shape = "h-[25px] aspect-square";
-  const color = "text-white bg-gray-700";
-  const align = "z-50 absolute right-[5px] top-[5px]";
+  const shape = 'h-[25px] aspect-square';
+  const color = 'text-white bg-gray-700';
+  const align = 'z-50 absolute right-[5px] top-[5px]';
 
   const _button = `${shape} ${color} ${align} ${Layout.center}`;
 
@@ -38,8 +55,8 @@ export default function App() {
 
     <BreakPoints />
 
-    <button id="help-button" onClick={toggleHelp} className={_button}
-    > {visible ? "✖" : "?"} </button>
+    <button id='help-button' onClick={toggleHelp} className={_button}
+    > {visible ? '✖' : '?'} </button>
 
     {visible && <Help />}
 

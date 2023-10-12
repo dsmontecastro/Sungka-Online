@@ -88,6 +88,7 @@ const SocketHandler: Middleware = store => {
       // Client is notified that Guest has left
       socket.on(EVENTS.SERVER.GUEST_LEFT, () => {
         alert('[WARNING]: Guest has left.');
+        store.dispatch(lobby.readied(false));
         store.dispatch(game.reset());
       });
 
@@ -183,10 +184,25 @@ const SocketHandler: Middleware = store => {
 
     // #region : Socket Connection ---------------------------------------------------------------------------
 
-    if (user.connect.match(action)) {
+    else if (user.connect.match(action)) {
       if (!socket.connected) {
         alert('[ERR]: Cannot contact Server! Please reload the page, or try again later.');
         socket.connect();
+      }
+    }
+
+    else if (user.disconnect.match(action)) {
+      if (socket.connected) {
+
+        // Signal Emissions
+        const roomID = store.getState().lobby.roomID;
+        store.dispatch(lobby.exitRoom(roomID));
+        socket.disconnect();
+
+        // State Setting
+        store.dispatch(lobby.roomExited());
+        store.dispatch(game.reset());
+
       }
     }
 
