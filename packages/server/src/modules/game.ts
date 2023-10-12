@@ -1,5 +1,4 @@
-import { MEMBERS } from './shared/utils.js';
-import { Board, Move, Update } from './shared/types';
+import { MEMBERS } from './shared.js';
 
 
 export function userMove(board: Board, move: Move): [Update[], Board, boolean] {

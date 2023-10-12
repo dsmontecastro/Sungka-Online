@@ -1,6 +1,3 @@
-import { Board } from './types';
-
-
 // #region : Constants --------------------------------------------------------------------------------------
 
 export const MEMBERS = 2;

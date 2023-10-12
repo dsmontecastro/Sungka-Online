@@ -2,10 +2,16 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "baseUrl": ".",
-        "outDir": "./dist"
+        "outDir": "./dist",
+        "types": [
+            "./src/index.d.ts"
+        ]
     },
     "include": [
         "./src"
     ],
-    "exclude": []
+    "exclude": [],
+    "ts-node": {
+        "esm": true
+    }
 }
