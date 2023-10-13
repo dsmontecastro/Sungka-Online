@@ -14,8 +14,8 @@ import logger from './modules/logger.js';
 config();
 const version = process.env.npm_package_version ?? '0.0.1';
 
-const host = process.env.HOST ?? '0.0.0.0';
-const port = parseInt(`${process.env.PORT}`) || 8080;
+const host = process.env.HOST ?? 'localhost';
+const port = parseInt(`${process.env.PORT}`) || 4000;
 const corsOrigin = `${host}:${port}`;
 
 
