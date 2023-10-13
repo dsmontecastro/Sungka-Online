@@ -1,0 +1,1 @@
+### This is a branch holding a modified version of the __SERVER__ package, for compatibilty purposes in relation to [Adaptable.io](https://adaptable.io/) hosting.
