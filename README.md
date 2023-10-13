@@ -3,7 +3,7 @@ Try it out: [https://dsmontecastro.github.io/Sungka-Online/](https://dsmontecast
 
 A full-stack, monorepo project made primarily with __React, Typescript, & Socket.io__.
 * The front-end (client) is built on __Vite, Tailwind CSS, and React-Redux__.
-* The back-end (server) uses __HTTP & ExpressJS__, hosted on _Adaptable.io_.
+* The back-end (server) uses __HTTP & ExpressJS__, hosted on _Adaptable.io_.  
 
 
 ![Screenshot](https://dsmontecastro.github.io/Portfolio/sungka.png)
