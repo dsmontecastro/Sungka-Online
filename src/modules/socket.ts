@@ -35,6 +35,86 @@ export default function handler({ io, trackers }: Handler) {
     // On Client connect
     io.on(EVENTS.CLIENT._CONNECT, (socket: Socket) => {
 
+        // #region : Helper Functions ------------------------------------------------------------------------
+
+        // Broadcast updated ROOMS to ALL Clients
+        function roomsUpdated() {
+
+            const count = Object.keys(rooms).length;
+            trackers.rooms = count;
+
+            io.emit(EVENTS.SERVER.ROOMS, rooms);
+            logger.info(String(count) + ' room(s).')
+
+        };
+
+        // Broadcast updated BOARD to ROOM
+        function boardUpdate(roomID: string) {
+            io.in(roomID).emit(EVENTS.SERVER.BOARD, boards[roomID]);
+        };
+
+        // Broadcast last MOVE to all Clients to ROOM
+        async function updates(roomID: string, updates: Update[]) {
+
+            for (let i = 0; i < updates.length; i++) {
+
+                const update = updates[i];
+
+                const move = update.move;
+                const value = update.value;
+                io.in(roomID).emit(EVENTS.SERVER.UPDATE, move, value);
+
+                await delay();
+
+            }
+
+        }
+
+        // Allow Client to leave ROOM
+        function exitRoom(roomID: string) {
+
+            const room = rooms[roomID];
+
+            if (!room) {
+                socket.emit(EVENTS.SERVER.ROOM_DNE);
+                return;
+            };
+
+            socket.leave(roomID);
+            socket.emit(EVENTS.SERVER.EXITED_ROOM);
+
+            const host = room.host;
+            const guest = room.guest;
+
+            if (socket.id === guest.id) {
+
+                // Notify Host
+                socket.to(host.id).emit(EVENTS.SERVER.GUEST_LEFT);
+
+                // Reset Guest info
+                room.members -= 1;
+                guest.ready = false;
+                guest.name = '-';
+                guest.id = '';
+
+            } else if (socket.id === host.id) {
+
+                // Delete Room & Board Records
+                delete rooms[roomID];
+                delete boards[roomID];
+
+                // Force-Exit & notify Guest
+                socket.to(guest.id).emit(EVENTS.SERVER.EXITED_ROOM);
+                socket.to(guest.id).emit(EVENTS.SERVER.HOST_LEFT);
+
+            };
+
+            roomsUpdated();
+        }
+
+        // #endregion ----------------------------------------------------------------------------------------
+
+
         // #region : Debugging -------------------------------------------------------------------------------
 
         socket.on(EVENTS.CLIENT._DEBUG, (msg) => {
@@ -60,11 +140,20 @@ export default function handler({ io, trackers }: Handler) {
         // On Client disconnect
         socket.on(EVENTS.CLIENT._DISCONNECT, () => {
 
-            const users = userCount();
-            trackers.users = users;
+            const _rooms = Array.from(socket.rooms.values());
+
+            // Check if Client is in a ROOM
+            // Note: _rooms[0] is their personal ID
+            if (_rooms.length > 1) {
+                const roomID = _rooms[1];
+                if (roomID) exitRoom(roomID);
+            }
+
+            const count = userCount();
+            trackers.users = count;
 
             logger.info(`${socket.id} has disconnected.`)
-            logger.info(`${users} user(s) connected.`);
+            logger.info(`${count} user(s) connected.`);
 
         });
 
@@ -73,16 +162,6 @@ export default function handler({ io, trackers }: Handler) {
 
         // #region : Lobby Signals ---------------------------------------------------------------------------
 
-        // Helper: Broadcast updated Rooms to all Clients
-        function roomsUpdated() {
-
-            const count = Object.keys(rooms).length;
-            trackers.rooms = count;
-
-            io.emit(EVENTS.SERVER.ROOMS, rooms);
-            logger.info(String(count) + ' room(s).')
-
-        };
 
         // On Client requests Rooms
         socket.on(EVENTS.CLIENT.ROOMS, () => {
@@ -90,46 +169,8 @@ export default function handler({ io, trackers }: Handler) {
         });
 
         // On Client exits Room
-        socket.on(EVENTS.CLIENT.EXIT_ROOM, (id: string) => {
-
-            const room = rooms[id];
-
-            if (!room) {
-                socket.emit(EVENTS.SERVER.ROOM_DNE);
-                return;
-            };
-
-            socket.leave(id);
-            socket.emit(EVENTS.SERVER.EXITED_ROOM);
-
-            const host = room.host;
-            const guest = room.guest;
-
-            if (socket.id === guest.id) {
-
-                // Notify Host
-                socket.to(host.id).emit(EVENTS.SERVER.GUEST_LEFT);
-
-                // Reset Guest info
-                room.members -= 1;
-                guest.ready = false;
-                guest.name = '-';
-                guest.id = '';
-
-            } else if (socket.id === host.id) {
-
-                // Delete Room & Board Records
-                delete rooms[id];
-                delete boards[id];
-
-                // Force-Exit & notify Guest
-                socket.to(guest.id).emit(EVENTS.SERVER.EXITED_ROOM);
-                socket.to(guest.id).emit(EVENTS.SERVER.HOST_LEFT);
-
-            };
-
-            roomsUpdated();
-
+        socket.on(EVENTS.CLIENT.EXIT_ROOM, (roomID: string) => {
+            exitRoom(roomID);
         });
 
         // On Client makes Room
@@ -155,14 +196,14 @@ export default function handler({ io, trackers }: Handler) {
         });
 
         // On Client joins Room
-        socket.on(EVENTS.CLIENT.JOIN_ROOM, (id: string, pass: string, user: string) => {
+        socket.on(EVENTS.CLIENT.JOIN_ROOM, (roomID: string, pass: string, user: string) => {
 
-            if (!rooms[id]) {
+            if (!rooms[roomID]) {
                 socket.emit(EVENTS.SERVER.ROOM_DNE);
                 return;
             };
 
-            const room = rooms[id];
+            const room = rooms[roomID];
             if (room.members >= MEMBERS) {
                 socket.emit(EVENTS.SERVER.ROOM_FULL);
                 return;
@@ -174,8 +215,8 @@ export default function handler({ io, trackers }: Handler) {
                 room.guest.id = socket.id;
                 room.guest.name = user;
 
-                socket.join(id);
-                socket.emit(EVENTS.SERVER.JOINED_ROOM, id, false);
+                socket.join(roomID);
+                socket.emit(EVENTS.SERVER.JOINED_ROOM, roomID, false);
 
                 roomsUpdated();
 
@@ -241,29 +282,6 @@ export default function handler({ io, trackers }: Handler) {
 
 
         // #region : Game Signals ----------------------------------------------------------------------------
-
-
-        // Helper: Broadcast updated BOARD to all Clients in Room
-        function boardUpdate(roomID: string) {
-            io.in(roomID).emit(EVENTS.SERVER.BOARD, boards[roomID]);
-        };
-
-        // Helper: Broadcast last MOVE to all Clients in Room
-        async function updates(roomID: string, updates: Update[]) {
-
-            for (let i = 0; i < updates.length; i++) {
-
-                const update = updates[i];
-
-                const move = update.move;
-                const value = update.value;
-                io.in(roomID).emit(EVENTS.SERVER.UPDATE, move, value);
-
-                await delay();
-
-            }
-
-        }
 
         // On Client Move
         socket.on(EVENTS.CLIENT.MOVE, async (roomID: string, move: Move) => {
