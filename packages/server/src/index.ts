@@ -12,10 +12,10 @@ import logger from './modules/logger.js';
 
 // ENV
 config();
-const version = process.env.npm_package_version ?? '0.0.1';
+const version = process.env.VERSION ?? '0.0.1';
 
-const host = process.env.HOST ?? 'localhost';
-const port = parseInt(`${process.env.PORT}`) || 4000;
+const host = process.env.HOST ?? '0.0.0.0';
+const port = parseInt(`${process.env.PORT}`) || 8080;
 const corsOrigin = `${host}:${port}`;
 
 
@@ -23,9 +23,12 @@ const corsOrigin = `${host}:${port}`;
 const app = express();
 app.use(cors());
 
-// HTPP & Socket.io
+// HTTP & Socket.io
 const server = createServer(app);
 const io = new Server(server, {
+    connectionStateRecovery: {
+        maxDisconnectionDuration: 120000,
+    },
     cors: {
         credentials: true,
         origin: corsOrigin,
@@ -49,10 +52,23 @@ server.listen(port, host, () => {
 
 // Route: Home
 app.get('/', (_, res) => {
-    let data = `SERVER STARTED (v.${version}) <br/>`;
-    data += `\> USERS = ${trackers.users} <br/>`;
-    data += `\> ROOMS = ${trackers.rooms} <br/>`;
-    res.send(data);
+
+    const header = `
+    <!doctype html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8" />
+            <title> Sungka Server </title>
+        </head>
+    `;
+
+    let body = '<body>';
+    body += `SERVER STARTED (v.${version}) <br/>`;
+    body += `\>  USERS = ${trackers.users} <br/>`;
+    body += `\>  ROOMS = ${trackers.rooms} <br/>`;
+    body += '</body> </html>';
+
+    res.send(header + body);
 });
 
 // #endregion ------------------------------------------------------------------------------------------------

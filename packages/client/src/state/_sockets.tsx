@@ -39,129 +39,133 @@ const SocketHandler: Middleware = store => {
 
   // Server Connection ---------------------------------------------------------------------------------------
 
-  socket.on(EVENTS.SERVER._CONNECT, () => {
+  if (!socket.recovered) {
 
-    const success = socket.connected;
-    store.dispatch(user.connected({ id: socket.id, success }));
-    if (dev) console.log(`CHECK CONNECTION: ${success} @ ${uri}`);
+    socket.on(EVENTS.SERVER._CONNECT, () => {
 
-
-    // Signal Handling ---------------------------------------------------------------------------------------
-
-    if (success) {
-
-      // #region : Lobby Signals -----------------------------------------------------------------------------
-
-      // Cient receives Rooms Update
-      socket.on(EVENTS.SERVER.ROOMS, (rooms: Rooms) => {
-        store.dispatch(lobby.roomsUpdated(rooms));
-      });
-
-      // Client successfully Exited Room
-      socket.on(EVENTS.SERVER.EXITED_ROOM, () => {
-        store.dispatch(lobby.roomExited());
-        store.dispatch(game.reset());
-        store.dispatch(chat.reset());
-      });
-
-      // Client successfully Made/Joined Room
-      socket.on(EVENTS.SERVER.JOINED_ROOM, (id: string, host: boolean) => {
-        store.dispatch(lobby.roomJoined({ id, host }));
-      });
-
-      // Client receives ERR: Room does not exist
-      socket.on(EVENTS.SERVER.ROOM_DNE, () => {
-        alert('[ERROR]: Room does not exist.');
-      });
-
-      // Client receives ERR: chosen Room is full
-      socket.on(EVENTS.SERVER.ROOM_FULL, () => {
-        alert('[ERROR]: Room is full.');
-      });
-
-      // Client is acknowleged as (not) Ready
-      // Note: Also used during GAME_OVER signals
-      socket.on(EVENTS.SERVER.READY, (state: boolean) => {
-        store.dispatch(lobby.readied(state));
-      });
-
-      // Client is notified that Guest has left
-      socket.on(EVENTS.SERVER.GUEST_LEFT, () => {
-        alert('[WARNING]: Guest has left.');
-        store.dispatch(lobby.readied(false));
-        store.dispatch(game.reset());
-      });
-
-      // Client is notified that Host has left
-      socket.on(EVENTS.SERVER.HOST_LEFT, () => {
-        alert('[WARNING]: Host has left.');
-        // Note: Paired with On(EXITED_ROOM)
-      });
-
-      // #endregion ------------------------------------------------------------------------------------------
+      const success = socket.connected;
+      store.dispatch(user.connected({ id: socket.id, success }));
+      if (dev) console.log(`CHECK CONNECTION: ${success} @ ${uri}`);
 
 
-      // #region : Chat Signals ------------------------------------------------------------------------------
+      // Signal Handling ---------------------------------------------------------------------------------------
 
-      // Client receives latest Message (from self or other Client)
-      socket.on(EVENTS.SERVER.MESSAGE, (message: Message) => {
-        if (!document.hasFocus()) document.title = '[!] New Message...';
-        store.dispatch(chat.receive(message));
-      });
+      if (success) {
 
-      // #endregion ------------------------------------------------------------------------------------------
+        // #region : Lobby Signals -----------------------------------------------------------------------------
+
+        // Cient receives Rooms Update
+        socket.on(EVENTS.SERVER.ROOMS, (rooms: Rooms) => {
+          store.dispatch(lobby.roomsUpdated(rooms));
+        });
+
+        // Client successfully Exited Room
+        socket.on(EVENTS.SERVER.EXITED_ROOM, () => {
+          store.dispatch(lobby.roomExited());
+          store.dispatch(game.reset());
+          store.dispatch(chat.reset());
+        });
+
+        // Client successfully Made/Joined Room
+        socket.on(EVENTS.SERVER.JOINED_ROOM, (id: string, host: boolean) => {
+          store.dispatch(lobby.roomJoined({ id, host }));
+        });
+
+        // Client receives ERR: Room does not exist
+        socket.on(EVENTS.SERVER.ROOM_DNE, () => {
+          alert('[ERROR]: Room does not exist.');
+        });
+
+        // Client receives ERR: chosen Room is full
+        socket.on(EVENTS.SERVER.ROOM_FULL, () => {
+          alert('[ERROR]: Room is full.');
+        });
+
+        // Client is acknowleged as (not) Ready
+        // Note: Also used during GAME_OVER signals
+        socket.on(EVENTS.SERVER.READY, (state: boolean) => {
+          store.dispatch(lobby.readied(state));
+        });
+
+        // Client is notified that Guest has left
+        socket.on(EVENTS.SERVER.GUEST_LEFT, () => {
+          alert('[WARNING]: Guest has left.');
+          store.dispatch(lobby.readied(false));
+          store.dispatch(game.reset());
+        });
+
+        // Client is notified that Host has left
+        socket.on(EVENTS.SERVER.HOST_LEFT, () => {
+          alert('[WARNING]: Host has left.');
+          // Note: Paired with On(EXITED_ROOM)
+        });
+
+        // #endregion ------------------------------------------------------------------------------------------
 
 
-      // #region : Game Signals ------------------------------------------------------------------------------
+        // #region : Chat Signals ------------------------------------------------------------------------------
 
-      // Client is told that both players are Ready
-      socket.on(EVENTS.SERVER.GAME_READY, () => {
-        store.dispatch(game.readied());
-      });
+        // Client receives latest Message (from self or other Client)
+        socket.on(EVENTS.SERVER.MESSAGE, (message: Message) => {
+          if (!document.hasFocus()) document.title = '[!] New Message...';
+          store.dispatch(chat.receive(message));
+        });
 
-      // Client sends Move to Server
-      socket.on(EVENTS.SERVER.UPDATE, (move: Move, value: number) => {
-        store.dispatch(game.update({ move, value }));
-      });
+        // #endregion ------------------------------------------------------------------------------------------
 
-      // Client compares own and Server's Boards
-      socket.on(EVENTS.SERVER.BOARD, (board: Board) => {
-        store.dispatch(game.verify(board));
-      });
 
-      // Client starts Turn
-      socket.on(EVENTS.SERVER.TURN, () => {
-        store.dispatch(game.startTurn());
-      });
+        // #region : Game Signals ------------------------------------------------------------------------------
 
-      // Client ends Turn
-      socket.on(EVENTS.SERVER.END_TURN, () => {
-        store.dispatch(game.endTurn());
-      });
+        // Client is told that both players are Ready
+        socket.on(EVENTS.SERVER.GAME_READY, () => {
+          store.dispatch(game.readied());
+        });
 
-      // Client ties Game
-      socket.on(EVENTS.SERVER.GAME_TIE, () => {
-        alert('[GAME_OVER]: It\'s a TIE..?');
-        store.dispatch(game.reset());
-      });
+        // Client sends Move to Server
+        socket.on(EVENTS.SERVER.UPDATE, (move: Move, value: number) => {
+          store.dispatch(game.update({ move, value }));
+        });
 
-      // Client wins Game
-      socket.on(EVENTS.SERVER.GAME_WIN, () => {
-        alert('[GAME_OVER]: You WIN!');
-        store.dispatch(game.reset());
-      });
+        // Client compares own and Server's Boards
+        socket.on(EVENTS.SERVER.BOARD, (board: Board) => {
+          store.dispatch(game.verify(board));
+        });
 
-      // Client loses Game
-      socket.on(EVENTS.SERVER.GAME_LOSE, () => {
-        alert('[GAME_OVER]: You LOSE!?');
-        store.dispatch(game.reset());
-      });
+        // Client starts Turn
+        socket.on(EVENTS.SERVER.TURN, () => {
+          store.dispatch(game.startTurn());
+        });
 
-      // #endregion ------------------------------------------------------------------------------------------
+        // Client ends Turn
+        socket.on(EVENTS.SERVER.END_TURN, () => {
+          store.dispatch(game.endTurn());
+        });
 
-    }
+        // Client ties Game
+        socket.on(EVENTS.SERVER.GAME_TIE, () => {
+          alert('[GAME_OVER]: It\'s a TIE..?');
+          store.dispatch(game.reset());
+        });
 
-  });
+        // Client wins Game
+        socket.on(EVENTS.SERVER.GAME_WIN, () => {
+          alert('[GAME_OVER]: You WIN!');
+          store.dispatch(game.reset());
+        });
+
+        // Client loses Game
+        socket.on(EVENTS.SERVER.GAME_LOSE, () => {
+          alert('[GAME_OVER]: You LOSE!?');
+          store.dispatch(game.reset());
+        });
+
+        // #endregion ------------------------------------------------------------------------------------------
+
+      }
+
+    });
+
+  }
 
 
 
