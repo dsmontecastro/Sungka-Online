@@ -23,7 +23,7 @@ const corsOrigin = `${host}:${port}`;
 const app = express();
 app.use(cors());
 
-// HTPP & Socket.io
+// HTTP & Socket.io
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
@@ -49,10 +49,23 @@ server.listen(port, host, () => {
 
 // Route: Home
 app.get('/', (_, res) => {
-    let data = `SERVER STARTED (v.${version}) <br/>`;
-    data += `\> USERS = ${trackers.users} <br/>`;
-    data += `\> ROOMS = ${trackers.rooms} <br/>`;
-    res.send(data);
+
+    const header = `
+    <!doctype html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8" />
+            <title> Sungka Server </title>
+        </head>
+    `;
+
+    let body = '<body>';
+    body += `SERVER STARTED (v.${version}) <br/>`;
+    body += `\>  USERS = ${trackers.users} <br/>`;
+    body += `\>  ROOMS = ${trackers.rooms} <br/>`;
+    body += '</body> </html>';
+
+    res.send(header + body);
 });
 
 // #endregion ------------------------------------------------------------------------------------------------

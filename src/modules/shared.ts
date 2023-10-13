@@ -35,7 +35,7 @@ export const EVENTS = {
         _DEBUG: 'debug',
 
         _CONNECT: 'connection',
-        _DISCONNECT: 'disconnect',
+        _DISCONNECT: 'disconnected',
 
         ROOMS: 'ROOMS',
         EXITED_ROOM: 'EXITED_ROOM',
@@ -69,7 +69,7 @@ export const EVENTS = {
 
         _DEBUG: 'debug',
         _CONNECT: 'connection',
-        _DISCONNECT: 'disconnect',
+        _DISCONNECT: 'disconnected',
 
         ROOMS: 'ROOMS',
         MAKE_ROOM: 'MAKE_ROOM',
