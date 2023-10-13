@@ -26,6 +26,9 @@ app.use(cors());
 // HTTP & Socket.io
 const server = createServer(app);
 const io = new Server(server, {
+    connectionStateRecovery: {
+        maxDisconnectionDuration: 120000,
+    },
     cors: {
         credentials: true,
         origin: corsOrigin,

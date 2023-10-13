@@ -126,16 +126,21 @@ export default function handler({ io, trackers }: Handler) {
 
         // #region : Client Connection -----------------------------------------------------------------------
 
-        // Server logs Client connection
-        trackers.users = userCount();
-        logger.info(`User connected @ ${socket.id}!`);
-        logger.info(`${userCount()} user(s) connected.`);
+        // New Connection
+        if (!socket.recovered) {
 
-        // Server validates Client connection
-        socket.emit(EVENTS.SERVER._CONNECT);
+            // Server logs Client connection
+            trackers.users = userCount();
+            logger.info(`User connected @ ${socket.id}!`);
+            logger.info(`${userCount()} user(s) connected.`);
 
-        // Server sends Rooms to new Client
-        socket.emit(EVENTS.SERVER.ROOMS, rooms);
+            // Server validates Client connection
+            socket.emit(EVENTS.SERVER._CONNECT);
+
+            // Server sends Rooms to new Client
+            socket.emit(EVENTS.SERVER.ROOMS, rooms);
+
+        }
 
         // On Client disconnect
         socket.on(EVENTS.CLIENT._DISCONNECT, () => {
